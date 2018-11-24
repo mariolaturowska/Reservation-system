@@ -25,17 +25,19 @@ class Seats extends React.Component {
                 rows: 4
             },
             array: [],
-            surname: "",
-            isFree: true,
-            date: "",
             arrayClick: [],
         }
     }
 
-    bookHandler = (e, rows) => {
+    findIndex = (array, arg2) => {//function to find index of element
+        return array.findIndex(arg1 => JSON.stringify(arg1.rows) === JSON.stringify(arg2))
+    };
+
+    bookHandler = (e, rows) => { // event to book seats
+
         e.preventDefault();
-        let element = {rows: rows, isFree: !this.state.isFree, surname: 'ja'};
-        let elIndex = this.state.arrayClick.findIndex(el => JSON.stringify(el) === JSON.stringify(element));
+        let element = {rows: rows, surname: 'ja'};
+        let elIndex = this.findIndex(this.state.arrayClick, element.rows);
         let tempArray = [...this.state.arrayClick];
 
         if (elIndex > -1) {
@@ -47,55 +49,79 @@ class Seats extends React.Component {
 
         } else {
             this.setState({
-                arrayClick: [...this.state.array, element]
+                arrayClick: [...this.state.arrayClick, element],
             })
         }
 
 
-        // db.collection('seats').add(element);
-    }
+    };
 
+    handleSubmit = (e) => { // submit number of booked seats to firebase
+        e.preventDefault();
+
+        this.state.arrayClick.forEach(e => {
+            this.setState({
+                seatsData:[...this.state.seatsData,e]
+            });
+
+            db.collection('seats').add(e);
+        });
+
+        this.setState({
+            arrayClick: []
+        });
+
+    };
 
     render() {
 
-        const styles = {
+        const circleStyles = {
             color: "#696969",
             width: "300px",
             height: "300px"
         };
 
-        if (!this.state.seatsData.length) {
-            return <CircularProgress style={styles}/>;
+        const seatsAllStyles = {//const to style all seats
+            listStyleType: 'none',
+        };
+
+        if (!this.state.seatsData.length) {// case firebase is not uploaded timely
+            return <CircularProgress style={circleStyles}/>;
         }
 
         let array = this.state.array;
 
-        for (let i = 1; i <= this.state.listSeats.columns; i++) {
+        for (let i = 1; i <= this.state.listSeats.columns; i++) {//definition of rows and columns structure
             array[i] = [];
             for (let j = 1; j <= this.state.listSeats.rows; j++) {
-                array[i].push(this.state.isFree)
+                array[i].push(i)
             }
         }
 
-        let elements = array.map((e, columnIndex) => {
+
+        let elements = array.map((e, columnIndex) => {// create seats
             return e.map((el, rowIndex) => {
-                return <OneSeat rows={[columnIndex, rowIndex]} database={this.state.seatsData}
-                                bookMethod={this.bookHandler} key={uuidv1()} id={uuidv1()} isFree={this.state.isFree}/>
+
+                let isClicked = this.findIndex(this.state.arrayClick, [columnIndex, rowIndex]);
+
+                let isInBase = this.findIndex(this.state.seatsData, [columnIndex, rowIndex]);
+
+                return <OneSeat rows={[columnIndex, rowIndex]} clicked={isClicked > -1} database={this.state.seatsData}
+                                bookMethod={this.bookHandler} key={uuidv1()} inBase={isInBase > -1}/>
             });
         });
 
-
         return (
             <div>
-                <ul>
+                <ul style={seatsAllStyles}>
                     {elements}
                 </ul>
-                <CounterSeats bookHandlerCounter={this.bookHandler}/>
+                <CounterSeats submitHandler={this.handleSubmit}/>
             </div>
         );
     }
 
-    componentDidMount() {
+    componentDidMount() {//take data from firebase
         db.collection('seats').get().then((el) => {
             el.docs.forEach((e) => {
                 let post = e.data();
@@ -105,8 +131,7 @@ class Seats extends React.Component {
                 })
             })
 
-        })
-
+        });
 
     }
 }

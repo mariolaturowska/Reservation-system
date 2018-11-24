@@ -16,18 +16,19 @@ import React from "react";
             this.setState({
                 name:e.currentTarget.value,
             })
-        }
+        };
 
-        handleSubmit=(e)=>{
-            console.log(e);
-        }
+        submitSeats = (e) => {
+            if (typeof this.props.submitHandler === 'function') {
+                this.props.submitHandler(e);
+            }
+        };
 
 
         render(){
 
-
             return (
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.submitSeats}>
                     <input type='name' value={this.state.name} onChange={this.changeName}/>
                     <input type='number' ref={count=>this.count=count}/>
                     <input type='number' ref={sum=>this.sum=sum}/>
