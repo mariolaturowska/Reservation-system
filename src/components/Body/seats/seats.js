@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Link, Route, NavLink} from "react-router-dom";
 import {classes} from './seats.css';
 import {db} from '../../../../config/firebase.js';
 import OneSeat from '../oneSeat/oneSeat.js';
+import Legend from '../legend/legend.js';
 import CounterSeats from '../counterSeats/counterSeats.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import './seats.css';
 // import {v4} from 'uuid';
 const uuidv1 = require('uuid/v1');
 const _ = require('lodash');
@@ -21,8 +22,8 @@ class Seats extends React.Component {
         this.state = {
             seatsData: [],
             listSeats: {
-                columns: 4,
-                rows: 4
+                columns: 14,
+                rows: 12
             },
             array: [],
             arrayClick: [],
@@ -59,15 +60,17 @@ class Seats extends React.Component {
     handleSubmit = (e) => { // submit number of booked seats to firebase
         e.preventDefault();
 
-        this.state.arrayClick.forEach(e => {
-            this.setState({
-                seatsData:[...this.state.seatsData,e]
-            });
+        let tempArray = [];
 
+
+        this.state.arrayClick.forEach(e => {
+
+            tempArray.push(e);
             db.collection('seats').add(e);
         });
 
         this.setState({
+            seatsData: [...this.state.seatsData, ...tempArray],
             arrayClick: []
         });
 
@@ -75,18 +78,8 @@ class Seats extends React.Component {
 
     render() {
 
-        const circleStyles = {
-            color: "#696969",
-            width: "300px",
-            height: "300px"
-        };
-
-        const seatsAllStyles = {//const to style all seats
-            listStyleType: 'none',
-        };
-
         if (!this.state.seatsData.length) {// case firebase is not uploaded timely
-            return <CircularProgress style={circleStyles}/>;
+            return <CircularProgress className='circleStyles'/>;
         }
 
         let array = this.state.array;
@@ -94,7 +87,7 @@ class Seats extends React.Component {
         for (let i = 1; i <= this.state.listSeats.columns; i++) {//definition of rows and columns structure
             array[i] = [];
             for (let j = 1; j <= this.state.listSeats.rows; j++) {
-                array[i].push(i)
+                array[i].push(j)
             }
         }
 
@@ -112,27 +105,38 @@ class Seats extends React.Component {
         });
 
         return (
-            <div>
-                <ul style={seatsAllStyles}>
-                    {elements}
-                </ul>
-                <CounterSeats submitHandler={this.handleSubmit}/>
+            <div className='background'>
+                <div className='cinemaRoom'>
+                    <ul className='seatsAllStyles grid-container'>
+                        {elements}
+                    </ul>
+                    <Legend/>
+                </div>
+                <CounterSeats submitHandler={this.handleSubmit} seatsChoosen={this.state.arrayClick}/>
             </div>
         );
     }
 
     componentDidMount() {//take data from firebase
+
+        this._isMounted = true; //prevent memory leak
+        if (this._isMounted) {
         db.collection('seats').get().then((el) => {
             el.docs.forEach((e) => {
                 let post = e.data();
 
-                this.setState({
-                    seatsData: [...this.state.seatsData, post]
-                })
+                    this.setState({
+                        seatsData: [...this.state.seatsData, post]
+                    })
+
             })
 
-        });
+        })};
 
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 }
 

@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import Seats from "../seats/seats";
+import './cinemaRooms.css';
 
 document.addEventListener('DOMContentLoaded', function () {
 

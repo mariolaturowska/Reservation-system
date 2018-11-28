@@ -1,0 +1,19 @@
+.legendElement{
+    background-repeat:no-repeat;
+    background-size:30px 30px;
+    width:calc(100%/3 - 120px);
+    height:45px;
+    display:inline-block;
+    color:white;
+    margin-left:40px;
+    font-weight:bold;
+    font-size:1.2em;
+
+}
+
+.list{
+    width:100%;
+    list-style-type:none;
+    margin:0 auto;
+    text-align:center;
+}

@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^3.5.1",
+    "chart.js": "^2.7.3",
     "uuid": "^3.3.2"
   }
 }

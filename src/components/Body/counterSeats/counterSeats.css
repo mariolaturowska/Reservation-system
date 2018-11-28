@@ -1,0 +1,8 @@
+.counterSeats{
+    /*position:absolute;*/
+    width:400px;
+    height:800px;
+    left:1200px;
+    top:400px;
+    font-size:2rem;
+}
