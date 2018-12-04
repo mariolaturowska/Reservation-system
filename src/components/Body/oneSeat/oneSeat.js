@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import imageRed from '../../../images/cinema-seat-red.png';
 import imageGrey from '../../../images/cinema-seat-grey.png';
 import imageYellow from '../../../images/cinema-seat-yellow.png';
@@ -13,7 +12,7 @@ class OneSeat extends React.Component {
     bookSeat = (e) => {
 
         if (typeof this.props.bookMethod === 'function') {
-            this.props.bookMethod(e, this.props.rows);
+            this.props.bookMethod(e, this.props.rows,this.props.id);
         }
 
 
@@ -25,20 +24,14 @@ class OneSeat extends React.Component {
         const seatFree = {
             backgroundImage: this.props.inBase ? 'url(' + imageGrey + ')' : this.props.clicked ? 'url(' + imageYellow + ')' : 'url(' + imageRed + ')',
         };
-
-        if (this.props.rows[0] === 14) {
-            return <div className='columns'>
-                <button style={seatFree} className='oneSeat' id={this.props.id} onClick={this.bookSeat}
-                        disabled={this.props.inBase}></button>
-                <p>{this.props.rows[1]+1}</p></div>
-        } else {
             return <div>
+                <div className="tooltip">
+                    <span className="tooltiptext">rząd: {this.props.rows[0]} miejsce: {this.props.rows[1]+1}</span>
                 <button style={seatFree} className='oneSeat' id={this.props.id} onClick={this.bookSeat}
-                        disabled={this.props.inBase}></button>
+                        disabled={this.props.inBase}>
+                </button>
+                </div>
             </div>
-        }
-
-
     }
 }
 
