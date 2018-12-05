@@ -1,15 +1,10 @@
 import React from 'react';
-import {HashRouter, Route, Link, Switch, NavLink} from 'react-router-dom';
-import {classes} from './seats.css';
 import {db} from '../../../../config/firebase.js';
 import OneSeat from '../oneSeat/oneSeat.js';
 import Legend from '../legend/legend.js';
 import CounterSeats from '../counterSeats/counterSeats.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import './seats.css';
-// import {v4} from 'uuid';
 const uuidv1 = require('uuid/v1');
-const _ = require('lodash');
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import OpenComponent from '../openComponent/openComponent.js';
@@ -38,28 +33,30 @@ class Seats extends React.Component {
             name: '',
             canBeSubmitted: true,
             dateChoosen: false,
-            clicked:false,
-            orderAccepted:false
+            clicked: false,
+            orderAccepted: false,
+            circle:false
         }
     }
 
-    findIndex = (array, arg2) => {//function to find index of element
+    //function to find index of element
+    findIndex = (array, arg2) => {
         return array.findIndex(arg1 => JSON.stringify(arg1.rows) === JSON.stringify(arg2))
     };
 
-    handleDayClick = (day, {selected}, disabled) => { //click day from calendar and take data from firebase
+    //click day from calendar and take data from firebase
+    handleDayClick = (day, {selected}, disabled) => {
 
         this.setState({
-            dateChoosen:disabled.target.getAttribute('aria-disabled')==='true'?false:true
+            dateChoosen: disabled.target.getAttribute('aria-disabled') === 'true' ? false : true
         });
-
-        // console.log(disabled.target.getAttribute('aria-disabled'));
 
         this.setState({
             date: new Date(day.getTime()),
             endDate: new Date(day.getTime()),
             seatsData: [],
-            orderAccepted:false,
+            orderAccepted: false,
+            circle:true
 
         }, () => {
 
@@ -77,25 +74,27 @@ class Seats extends React.Component {
                     })
 
                 });
-
+                    this.setState({
+                        circle:false
+                })
             })
         });
 
     };
 
-
+    //function to disable the dates before current day
     disablePrevDates = (startDate) => {
-        const startSeconds =Date.parse(startDate);
+        const startSeconds = Date.parse(startDate);
         return (date) => {
             return Date.parse(date) < startSeconds;
         }
     };
 
-
-    bookHandler = (e, rows,id) => { // event to book seats
+    //event to book seats
+    bookHandler = (e, rows, id) => {
 
         e.preventDefault();
-        let element = {id:id, rows: rows, date: this.state.date, surname: this.state.name};
+        let element = {id: id, rows: rows, date: this.state.date, surname: this.state.name};
         let elIndex = this.findIndex(this.state.arrayClick, element.rows);
         let tempArray = [...this.state.arrayClick];
 
@@ -109,32 +108,34 @@ class Seats extends React.Component {
         } else {
             this.setState({
                 arrayClick: [...this.state.arrayClick, element],
-                clicked:true,
-                orderAccepted:false
+                clicked: true,
+                orderAccepted: false
             })
         }
     };
 
-    deleteSeat=(e)=>{
-        let element=e.currentTarget.parentElement.id;
-        let items=this.state.arrayClick.filter(el => {
+    //event to remove seat by clicking in the list
+    deleteSeat = (e) => {
+        let element = e.currentTarget.parentElement.id;
+        let items = this.state.arrayClick.filter(el => {
             return el.id !== element;
         });
 
         this.setState({
-            arrayClick:items
+            arrayClick: items
         });
     };
 
 
-
-    handleName = (e) => {//allow to change input
+    //event allowing to change value in input
+    handleName = (e) => {
         this.setState({
             name: e.currentTarget.value,
         })
     };
 
-    handleSubmit = (e) => { // submit number of booked seats to firebase
+    //submit number of booked seats to firebase
+    handleSubmit = (e) => {
         e.preventDefault();
         let tempArray = [];
 
@@ -146,30 +147,25 @@ class Seats extends React.Component {
 
             });
 
-
             this.setState({
                 seatsData: [...this.state.seatsData, ...tempArray],
                 arrayClick: [],
-                name:"",
+                name: "",
             });
         }
 
         this.setState({
             canBeSubmitted: this.state.name.length === 0 ? false : true,
-            orderAccepted:  (this.state.name.length === 0 ? false : true) ? true : false
+            orderAccepted: (this.state.name.length === 0 ? false : true) ? true : false
         });
 
     };
 
     render() {
 
-        const startDate = moment().subtract(1,"days");
-        const MONTHS=['Styczeń', 'Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
-        const WEEKDAYS_SHORT =['Niedz','Pon','Wt','Śr','Czw','Pt','Sob'];
-
-        // if (!this.state.seatsData.length) {// case firebase is not uploaded timely
-        //     return <CircularProgress className='circleStyles'/>;
-        // }
+        const startDate = moment().subtract(1, "days");
+        const MONTHS = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+        const WEEKDAYS_SHORT = ['Niedz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
 
         let array = this.state.array;
 
@@ -180,34 +176,43 @@ class Seats extends React.Component {
             }
         }
 
-
-        let elements = array.map((e, columnIndex) => {// create seats
+        //function to create seats
+        let elements = array.map((e, columnIndex) => {
             return e.map((el, rowIndex) => {
 
+                //check if element is clicked
                 let isClicked = this.findIndex(this.state.arrayClick, [columnIndex, rowIndex]);
-
+                //check if element is in database
                 let isInBase = this.findIndex(this.state.seatsData, [columnIndex, rowIndex]);
 
                 return <OneSeat rows={[columnIndex, rowIndex]} clicked={isClicked > -1} database={this.state.seatsData}
-                                bookMethod={this.bookHandler} key={uuidv1()} id ={uuidv1()} inBase={isInBase > -1}/>
+                                bookMethod={this.bookHandler} key={uuidv1()} id={uuidv1()} inBase={isInBase > -1}/>
             });
         });
+
+        //case firebase is not uploaded timely
+
 
         return (
             <div className='background container'>
                 <div className='calendar'>
-                    {this.state.dateChoosen?<ChoosenDay dateChoosen={this.state.date}/>:null}
-                <DayPicker className='dayPicker' onDayClick={this.handleDayClick} selectedDays={this.state.date} months={MONTHS} weekdaysShort={WEEKDAYS_SHORT} firstDayOfWeek={0}
-                           disabledDays={[this.disablePrevDates(startDate)]}/>
+                    {this.state.dateChoosen ? <ChoosenDay dateChoosen={this.state.date}/> : null}
+                    <DayPicker className='dayPicker' onDayClick={this.handleDayClick} selectedDays={this.state.date}
+                               months={MONTHS} weekdaysShort={WEEKDAYS_SHORT} firstDayOfWeek={0}
+                               disabledDays={[this.disablePrevDates(startDate)]}/>
                 </div>
+                {!this.state.seatsData.length && this.state.circle?<CircularProgress className='circleStyles'/>:null}
                 {this.state.dateChoosen ? <div className='cinemaRoom'>
                     <ul className='seatsAllStyles grid-container'>
                         {elements}
                     </ul>
                     <Legend/>
                 </div> : <OpenComponent/>}
-                    <CounterSeats date={this.state.date} submitHandler={this.handleSubmit} seatsChoosen={this.state.arrayClick}
-                                  changeName={this.handleName} canBeSubmitted={this.state.canBeSubmitted} name={this.state.name} deleteSeat={this.deleteSeat} orderAccepted={this.state.orderAccepted}/>
+                <CounterSeats date={this.state.date} submitHandler={this.handleSubmit}
+                              seatsChoosen={this.state.arrayClick}
+                              changeName={this.handleName} canBeSubmitted={this.state.canBeSubmitted}
+                              name={this.state.name} deleteSeat={this.deleteSeat}
+                              orderAccepted={this.state.orderAccepted}/>
             </div>
         );
     }

@@ -1,22 +1,21 @@
 import React from 'react';
 import './openComponent.css';
-import noFilm from "../../../images/film3.jpeg";
 
 
-
-
+//Component uploaded when website open
 class OpenComponent extends React.Component {
-   constructor() {
-   super();
+    constructor() {
+        super();
 
-   }
-   render(){
-     return (<div className='openComponent'>
-         <div style={{backgroundImage:'url(' + noFilm + ')'}} className='image'>
-             <h2 className='header'>Wybierz dzień</h2>
-         </div>
-         </div>)
-   }
- }
+    }
+
+    render() {
+        return (<div className='openComponent'>
+            <div className='image'>
+                <h2 className='header'>Wybierz dzień</h2>
+            </div>
+        </div>)
+    }
+}
 
 export default OpenComponent;

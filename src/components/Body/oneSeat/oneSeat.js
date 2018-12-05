@@ -1,8 +1,8 @@
 import React from 'react';
-import imageRed from '../../../images/cinema-seat-red.png';
-import imageGrey from '../../../images/cinema-seat-grey.png';
-import imageYellow from '../../../images/cinema-seat-yellow.png';
-import './oneSeat.css';
+import imageRed from '../../../images/red.png';
+import imageGrey from '../../../images/grey.png';
+import imageYellow from '../../../images/yellow.png';
+
 
 class OneSeat extends React.Component {
     constructor() {
