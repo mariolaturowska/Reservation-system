@@ -42,6 +42,7 @@ class CounterSeats extends React.Component {
                 <h2 className='summary'>
                     Podsumowanie zamówienia<br/>
                     <span>Wybrane miejsca: {this.props.seatsChoosen.length}</span>
+                    {this.props.orderAccepted ? <p className='acceptedOrder'>Zamówienie zostało przyjęte</p> : null}
                 </h2>
 
                 {this.props.seatsChoosen.length > 0 ?
@@ -64,7 +65,6 @@ class CounterSeats extends React.Component {
 
                         </form>
                     </div> : null}
-                {this.props.orderAccepted ? <h2 className='acceptedOrder'>Zamówienie zostało przyjęte</h2> : null}
             </div>
         )
     }

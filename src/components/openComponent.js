@@ -1,5 +1,4 @@
 import React from 'react';
-import './openComponent.css';
 
 
 //Component uploaded when website open
