@@ -1,0 +1,47 @@
+//Open Component
+
+.openComponent {
+  height: calc(#{$height} - 50px);
+  display: grid;
+  font-size: 1.5em;
+  @media #{$tablet}{
+    font-size: 3em;
+  }
+  @media #{$desktop}{
+    font-size: 4em;
+  }
+}
+
+.header {
+  font-weight: bold;
+  margin-top: 50px;
+  color: $white;
+  padding:50px 0 0 80px;
+  background-color: rgba(255, 255, 255, 0.15);
+  animation: move 2s ease-out;
+}
+
+@keyframes move {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+    @media #{$tablet}{
+      transform: translateX(200px);
+    }
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.image {
+  height: calc(#{$height} - 60px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: lighten;
+  background-image: url('../images/film3.jpeg');
+}

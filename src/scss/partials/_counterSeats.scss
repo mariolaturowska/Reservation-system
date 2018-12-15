@@ -1,0 +1,243 @@
+//styling counterSeats
+
+.counterSeats {
+  @include displayFlex();
+  flex-wrap: wrap;
+  align-items: flex-start;
+  font-family: Arial, Helvetica, sans-serif;
+  height: calc(#{$height} - 60px);
+  color: $white;
+  border: $common-border;
+  background: $common-background;
+  text-align: left;
+  position: relative;
+}
+
+
+.summary {
+  font-size: 1em;
+  flex-basis: 100%;
+  height: 25%;
+  line-height: 2rem;
+  text-align:center;
+  @media #{$tablet}{
+    font-size: 1.2em;
+  }
+  @media #{$smallDesktop}{
+    margin-top:50px;
+    font-size: 1em;
+  }
+  @media #{$mediumDesktop}{
+    font-size: 1.2em;
+  }
+  @media #{$desktop}{
+    font-size: 1.6em;
+    line-height:2em;
+  }
+}
+
+.wrapper {
+  @include displayFlex();
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: 75%;
+  padding:15px;
+  background-image: url('../images/_ionicons_svg_md-cart.png');
+  background-repeat: no-repeat;
+  background-size: 7%;
+  background-position: top center;
+  @media #{$smallDesktop}{
+    background-size: 10%;
+    padding:2px;
+  }
+  @media #{$mediumDesktop}{
+    background-size: 10%;
+    padding:4px;
+  }
+}
+
+.table {
+  margin-top: 50px;
+  width: 100%;
+  font-size: 1.8rem;
+  height: 40%;
+  display: block;
+  padding:0;
+  overflow: auto;
+}
+
+
+td, tr {
+  width: 18%;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-size: 40% 70%;
+  background-position: center;
+  border: $common-border;
+  text-align: center;
+  font-size: $fontSize1;
+  @media #{$tablet}{
+    width: 16%;
+    font-size:0.8em;
+  }
+  @media #{$smallDesktop}{
+    width: 20%;
+    font-size:$fontSize1;
+    padding:0;
+    height: 30px;
+  }
+  @media #{$desktop}{
+    width: 20%;
+    font-size:0.8em;
+    height: 40px;
+  }
+}
+
+.sum {
+  margin-top: 15px;
+  width: 40%;
+  float: right;
+  padding:2px;
+  padding-left: 18px;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: $fontSize1;
+  @media #{$tablet}{
+    font-size:0.8em;
+  }
+  @media #{$smallDesktop}{
+    font-size:0.6em;
+    width: 70%
+  }
+  @media #{$desktop}{
+    padding-left:30px;
+    font-size:1em;
+    width: 60%
+  }
+}
+
+.name {
+  height: 40px;
+  width: 100%;
+  font-size: 1rem;
+  &:focus {
+    border: 3px solid #555;
+  }
+  @media #{$tablet}{
+    height: 50px;
+    font-size: 1rem;
+  }
+  @media #{$smallDesktop}{
+    height: 40px;
+    font-size: 0.7rem;
+  }
+  @media #{$desktop}{
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}
+
+.buttonSend {
+  width: 50%;
+  height: 35px;
+  background-color: blue;
+  color: $white;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid blue;
+  &:hover {
+    transition-duration: 0.4s;
+    background-color: darkblue;
+    border: 1px solid darkblue;
+  }
+  @media #{$tablet}{
+    height: 40px;
+  }
+  @media #{$desktop}{
+    height: 50px;
+    margin-top: 20px;
+    font-size: 1.5em;
+  }
+}
+
+form {
+  display:inline-block;
+  @media #{$desktop}{
+    @include displayFlex();
+    align-items:center;
+    flex-wrap:wrap;
+    padding:4px;
+  }
+  width: 100%;
+}
+
+.paragraf {
+  font-size: 1rem;
+  color: $white;
+  font-weight: bold;
+  flex-basis: 100%;
+  @media #{$tablet}{
+    font-size:1.5rem;
+  }
+  @media #{$smallDesktop}{
+    font-size:1rem;
+  }
+  @media #{$desktop}{
+    font-size:1.4rem;
+  }
+}
+
+.paragrafRed {
+  flex-basis: 100%;
+  color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  @media #{$tablet}{
+    font-size:1.5rem;
+  }
+  @media #{$smallDesktop}{
+    font-size:1rem;
+  }
+  @media #{$desktop}{
+    font-size:1.4rem;
+  }
+}
+
+.acceptedOrder {
+  color: $white;
+  font-size: 2rem;
+  text-align: center;
+  animation-name: accepted;
+  margin-top: 4em;
+  line-height: 1.5em;
+  background-position: 100% 50%;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  @media #{$tablet}{
+    font-size: 3rem;
+  }
+}
+
+@keyframes accepted {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+    @media #{$tablet}{
+      transform: translateY(200px);
+    }
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.trash {
+  background-image: url('../images/kosz.png');
+}

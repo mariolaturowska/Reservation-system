@@ -1,13 +1,9 @@
 import React from 'react';
 
-
-//Component uploaded when website open
 class OpenComponent extends React.Component {
     constructor() {
         super();
-
     }
-
     render() {
         return (<div className='openComponent'>
             <div className='image'>

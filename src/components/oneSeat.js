@@ -8,32 +8,27 @@ class OneSeat extends React.Component {
     constructor() {
         super();
     }
-
+    //event to add seat object to arrayClick
     bookSeat = (e) => {
-
         if (typeof this.props.bookMethod === 'function') {
-            this.props.bookMethod(e, this.props.rows,this.props.id);
+            this.props.bookMethod(e, this.props.rows, this.props.id);
         }
-
-
     };
-
     render() {
-
-
+        //const determining if seat is free, clicked or booked. It is a base to change a color of seat
         const seatFree = {
             backgroundImage: this.props.inBase ? 'url(' + imageGrey + ')' : this.props.clicked ? 'url(' + imageYellow + ')' : 'url(' + imageRed + ')',
         };
-            return <div>
-                <div className="tooltip">
-                    <span className="tooltiptext">rząd: {this.props.rows[0]} miejsce: {this.props.rows[1]+1}</span>
+        return <div>
+            <!-- added tooltip after hovering it appers row and column of a seat  -->
+            <div className="tooltip">
+                <span className="tooltiptext">rząd: {this.props.rows[0]} miejsce: {this.props.rows[1] + 1}</span>
                 <button style={seatFree} className='oneSeat' id={this.props.id} onClick={this.bookSeat}
                         disabled={this.props.inBase}>
                 </button>
-                </div>
             </div>
+        </div>
     }
 }
-
 
 export default OneSeat;

@@ -1,0 +1,45 @@
+//legend
+
+.legendElement {
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  width: calc(100% / 3 - 30px);
+  height: 40px;
+  display: inline-block;
+  color: $white;
+  font-weight: bold;
+  font-size: 0.6em;
+  margin-top:30px;
+  @media #{$tablet}{
+    font-size: 1.2em;
+    background-size: 27px 27px;
+  }
+  @media #{$smallDesktop}{
+    font-size: 0.9em;
+    width: calc(100% / 3);
+    background-size: 21px 21px;
+  }
+  @media #{$mediumDesktop}{
+    font-size: 1em;
+    background-size: 25px 25px;
+  }
+  @media #{$desktop}{
+    font-size: 1.2em;
+    margin-top:0;
+    background-size: 30px 30px;
+    width: calc(100% / 3);
+  }
+}
+
+.list {
+  width: 100%;
+  list-style-type: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@each $name in 'grey', 'red', 'yellow' {
+  .element-#{$name} {
+    background-image: url('../images/#{$name}.png');
+  }
+}

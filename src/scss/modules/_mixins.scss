@@ -1,0 +1,10 @@
+@mixin displayFlex {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin styleContainer{
+  display: inline-block;
+  position: relative;
+  width:100%;
+}

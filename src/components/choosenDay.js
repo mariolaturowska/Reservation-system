@@ -1,5 +1,4 @@
 import React from "react";
-
 let moment = require('moment');
 require('moment/locale/pl');
 
@@ -7,9 +6,7 @@ require('moment/locale/pl');
 class ChoosenDay extends React.Component {
     constructor() {
         super();
-
     }
-
     render() {
         return (
             <div className='dateChoosen'>

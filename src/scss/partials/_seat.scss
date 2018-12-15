@@ -1,0 +1,35 @@
+//styling component with seats
+.cinemaRoom {
+  background: $common-background;
+  border: $common-border;
+  height: calc(#{$height} - 60px);
+  width:100%;
+  position:relative;
+  padding:0 15px 0 15px;
+  @media #{$tablet}{
+    margin-bottom: 20px;
+    padding-top: 100px;
+    overflow-x: $overflow;
+  }
+  @media #{$smallDesktop}{
+    padding-top: 50px;
+    @include displayFlex();
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  @media #{$mediumDesktop}{
+    padding-left: 50px;
+    padding-right:50px;
+    margin-bottom:0;
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.seatsAllStyles {
+  list-style-type: none;
+  width: 100%;
+}

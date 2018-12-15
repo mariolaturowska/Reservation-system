@@ -1,0 +1,27 @@
+
+//loading circle
+.circleStyles {
+  border: 16px solid transparent;
+  border-radius: 50%;
+  border-top: 16px solid $white;
+  border-bottom: 16px solid $white;
+  width: 200px;
+  height: 200px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 50%;
+}
+
+//animation for circle
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
