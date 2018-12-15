@@ -20,7 +20,6 @@ class OneSeat extends React.Component {
             backgroundImage: this.props.inBase ? 'url(' + imageGrey + ')' : this.props.clicked ? 'url(' + imageYellow + ')' : 'url(' + imageRed + ')',
         };
         return <div>
-            <!-- added tooltip after hovering it appers row and column of a seat  -->
             <div className="tooltip">
                 <span className="tooltiptext">rząd: {this.props.rows[0]} miejsce: {this.props.rows[1] + 1}</span>
                 <button style={seatFree} className='oneSeat' id={this.props.id} onClick={this.bookSeat}

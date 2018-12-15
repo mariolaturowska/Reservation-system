@@ -201,13 +201,9 @@ class Seats extends React.Component {
         //case firebase is not uploaded timely
         return (
             <div className={this.state.dateChoosen ? 'background container' : 'background container-open-container'}>
-                <!-- alert window when date before today is choosen -->
                 <Alert open={this.state.openAlert} handleAlert={this.handleClose}/>
-                <!-- calendar div -->
                 <div className='calendar'>
-                    <!-- choosen day appearing in calendar -->
                     {this.state.dateChoosen ? <ChoosenDay dateChoosen={this.state.startDate}/> : null}
-                    <!-- day picker calendar -->
                     <DayPicker className='dayPicker'
                                onDayClick={this.handleDayClick}
                                selectedDays={this.state.startDate}
@@ -218,18 +214,13 @@ class Seats extends React.Component {
                                localeUtils={MomentLocaleUtils}
                                locale='pl'/>
                 </div>
-                <!-- cinema room -->
                 {this.state.dateChoosen ? <div className='cinemaRoom'>
                     {!this.state.seatsData.length && this.state.circle ? <div className='circleStyles'></div> : null}
-                    <!-- all seats -->
                     <ul className='seatsAllStyles grid-container'>
                         {elements}
                     </ul>
-                    <!-- legend under seats -->
                     <Legend/>
-                    <!-- open component when website loads or date before today is choosen -->
                 </div> : <OpenComponent/>}
-                <!-- counter seats component -->
                 {this.state.dateChoosen ? <CounterSeats date={this.state.startDate}
                                                         submitHandler={this.handleSubmit}
                                                         seatsChoosen={this.state.arrayClick}
