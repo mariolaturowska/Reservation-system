@@ -1,7 +1,7 @@
 Reservation system
 ===========================
 
-Project related to book seats in cinema.
+Project related to booking seats in cinema.
 
 Installation & configuration:
 -------------------------
