@@ -24,5 +24,5 @@ Future improvements:
 Demo preview:
 -------------------------
 
-
+![image](https://user-images.githubusercontent.com/39536739/50185703-de964800-0318-11e9-9ec4-b5247dc01d03.png)
 
