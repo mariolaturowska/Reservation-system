@@ -13,6 +13,7 @@ Technologies used in the project:
 
 * React,
 * EcmaScript 6/7,
+* Firebase,
 * SASS, HTML,
 * other libraries: react-day-picker, material-ui, moment.js, uuids
 
