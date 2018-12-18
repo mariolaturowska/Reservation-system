@@ -17,10 +17,10 @@ Technologies used in the project:
 * SASS, HTML,
 * other libraries: react-day-picker, material-ui, moment.js, uuids
 
-Future improvements:
+Future development:
 -------------------------
 * adding Redux,
-* UX & performance improvement
+* UX & performance development
 
 Demo preview:
 -------------------------
