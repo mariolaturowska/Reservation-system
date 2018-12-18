@@ -6,7 +6,7 @@ Project related to book seats in cinema.
 Installation & configuration:
 -------------------------
 
-Installation of all dependencies using npm or yarn and webpack.
+Installation of all dependencies using npm or yarn.
 
 Technologies used in the project:
 -------------------------
