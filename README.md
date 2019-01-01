@@ -3,6 +3,11 @@ Reservation system
 
 Project related to booking seats in cinema.
 
+Link to demo app
+-------------------------
+
+http://turowska.com.pl/seats/
+
 Installation & configuration:
 -------------------------
 
